@@ -8,3 +8,9 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+let i = 0.2;
+setInterval(()=>{
+    i *= 0.9995
+    document.documentElement.style.setProperty('--percent', i + '%')
+}, 16)

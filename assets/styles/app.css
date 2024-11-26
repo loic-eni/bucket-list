@@ -1,3 +1,63 @@
+/* MAIN */
+
+:root{
+    --percent: 0.2%;
+}
+
 body {
-    background-color: skyblue;
+    background: repeating-radial-gradient(#5500ff, #d000ff var(--percent));
+    height: 100vh;
+}
+
+header{
+    background-color: #2C3E50;
+}
+
+/*header *{*/
+/*    color: black;*/
+/*    filter:invert(1);*/
+/*}*/
+
+footer{
+    background-color: #34495E;
+    color: black;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+main{
+    padding: 20px;
+}
+
+/* GLOBAL */
+
+h1{
+    margin:0;
+}
+
+/* UTILS */
+
+
+.flex-row{
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.center-content{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.space-between{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invert{
+    color: white;
+    mix-blend-mode: difference;
 }

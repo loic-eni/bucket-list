@@ -10,9 +10,9 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/', 'main')]
+    #[Route('/', 'home')]
     public function home(): Response
     {
-        return $this->render('main/home.html.twig');
+        return $this->render('main/home.html.twig', ['serie'=>['name'=>'Arcane', 'year'=>2024, 'director'=>'Riot games']]);
     }
 }
