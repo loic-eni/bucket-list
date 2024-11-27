@@ -15,4 +15,9 @@ class MainController extends AbstractController
     {
         return $this->render('main/home.html.twig', ['serie'=>['name'=>'Arcane', 'year'=>2024, 'director'=>'Riot games']]);
     }
+
+    #[Route('/about', 'about')]
+    public function about(): Response{
+        return $this->render('main/about.html.twig');
+    }
 }
