@@ -1,5 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Liste des choses a faire</h1>
+    <h1 class='invert'>Liste des choses souhaits</h1>
+    <ul>
+    {% for wish in wishes %}
+        <li class="invert">
+            <a href="{{ path("wish_detail", {id:wish.id}) }}">{{ wish.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
 {% endblock %}
