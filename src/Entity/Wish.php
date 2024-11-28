@@ -5,8 +5,11 @@ namespace App\Entity;
 use App\Repository\WishRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: WishRepository::class)]
+#[UniqueEntity(['title'])]
+#[ORM\HasLifecycleCallbacks]
 class Wish
 {
     #[ORM\Id]
@@ -15,6 +18,8 @@ class Wish
     private ?int $id = null;
 
     #[ORM\Column(length: 250)]
+    #[Assert\NotBlank(message:"Your wish must have a title")]
+    #[Assert\Length(min: 1, max: 250, minMessage: "The title must be at least one character long", maxMessage: "The title cannot be more than 250 characters long")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -107,5 +112,16 @@ class Wish
         $this->dateUpdated = $dateUpdated;
 
         return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function beforeSave(){
+        $this->setDateCreated(new \DateTime('now'));
+        $this->setDateUpdated(new \DateTime('now'));
+    }
+
+    #[ORM\PrePersist]
+    public function beforeUpdate(){
+        $this->setDateUpdated(new \DateTime('now'));
     }
 }

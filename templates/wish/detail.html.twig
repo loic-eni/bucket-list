@@ -1,12 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>detail du souhait</h1>
-    <div>title: {{ wish.title }}</div>
-    <div>description: {{ wish.description }}</div>
-    <div>author: {{ wish.author }}</div>
-    <div>isPublished: {{ wish.published }}</div>
-    <div>createdAt: {{ wish.dateCreated | date('Y-m-d') }}</div>
-    <div>updatedAt: {{ wish.dateUpdated | date('Y-m-d')}}</div>
+    <div class="card">
+        <h1>detail du souhait</h1>
+        <div>title: {{ wish.title }}</div>
+        <div>description: {{ wish.description }}</div>
+        <div>author: {{ wish.author }}</div>
+        <div>isPublished: {{ wish.published }}</div>
+        <div>createdAt: {{ wish.dateCreated | date('Y/m/d H:i:s') }}</div>
+        <div>updatedAt: {{ wish.dateUpdated | date('Y/m/d H:i:s')}}</div>
+
+        <div class="flex">
+            <a href="{{ path("wish_delete", {id:wish.id}) }}">
+                <button type="submit">delete</button>
+            </a>
+            <form action="{{ path("wish_update", {id:wish.id}) }}" method="get">
+                <button type="submit">update</button>
+            </form>
+        </div>
+    </div>
+
 {% endblock %}
 
