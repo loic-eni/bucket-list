@@ -5,7 +5,7 @@
 }
 
 body {
-    background: repeating-radial-gradient(#5500ff, #d000ff var(--percent));
+    background: repeating-radial-gradient(#5500ff, #f000ff var(--percent));
     height: 100vh;
 }
 

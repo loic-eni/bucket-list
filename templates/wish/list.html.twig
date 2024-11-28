@@ -2,7 +2,7 @@
 
 {% block body %}
     <h1 class='invert'>Liste des choses souhaits</h1>
-    <ul>
+    <ul style="overflow-y: scroll;max-height: 70vh">
     {% for wish in wishes %}
         <li class="invert">
             <a href="{{ path("wish_detail", {id:wish.id}) }}">{{ wish.title }}</a>
