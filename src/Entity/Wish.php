@@ -23,8 +23,8 @@ class Wish
     #[ORM\Column(length: 50)]
     private ?string $author = null;
 
-    #[ORM\Column]
-    private ?bool $isPublished = null;
+    #[ORM\Column(options: ['default'=>false])]
+    private ?bool $isPublished = false;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $dateCreated = null;
