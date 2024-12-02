@@ -5,7 +5,7 @@
     <ul style="overflow-y: scroll;max-height: 70vh">
     {% for wish in wishes %}
         <li class="invert">
-            <a href="{{ path("wish_detail", {id:wish.id}) }}">{{ wish.title }}</a>
+            <a href="{{ path("wish_detail", {id:wish.id}) }}">{{ wish.title }} ({{ wish.category.name }})</a>
         </li>
     {% endfor %}
     </ul>

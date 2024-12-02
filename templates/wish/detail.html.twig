@@ -6,6 +6,7 @@
         <div>title: {{ wish.title }}</div>
         <div>description: {{ wish.description }}</div>
         <div>author: {{ wish.author }}</div>
+        <div>category: {{ wish.category.name }}</div>
         <div>isPublished: {{ wish.published }}</div>
         <div>createdAt: {{ wish.dateCreated | date('Y/m/d H:i:s') }}</div>
         <div>updatedAt: {{ wish.dateUpdated | date('Y/m/d H:i:s')}}</div>
