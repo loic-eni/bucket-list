@@ -39,6 +39,7 @@ public function add(Request $request, EntityManagerInterface $entityManager): Re
         $wishForm->handleRequest($request);
 
         if($wishForm->isSubmitted() && $wishForm->isValid()){
+            $wish->setUser($this->getUser());
             $entityManager->persist($wish);
             $entityManager->flush();
             $this->addFlash('success', 'Idea successfully added');

@@ -25,9 +25,6 @@ class Wish
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $author = null;
-
     #[ORM\Column(options: ['default'=>false])]
     private ?bool $isPublished = false;
 
@@ -40,6 +37,13 @@ class Wish
     #[ORM\ManyToOne(inversedBy: 'wishes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'wishes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $author = null;
 
     public function getId(): ?int
     {
@@ -66,18 +70,6 @@ class Wish
     public function setDescription(?string $description): static
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
 
         return $this;
     }
@@ -137,6 +129,30 @@ class Wish
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): static
+    {
+        $this->author = $author;
 
         return $this;
     }

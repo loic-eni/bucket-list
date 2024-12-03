@@ -17,7 +17,6 @@ class WishType extends AbstractType
         $builder
             ->add('title')
             ->add('description',null, ['required'=>false])
-            ->add('author')
             ->add('category', EntityType::class, ['required'=>true, 'class'=>Category::class, 'choice_label'=>'name'])
             ->add("addWish", SubmitType::class)
         ;
