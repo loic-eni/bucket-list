@@ -18,6 +18,7 @@ USE \Symfony\Component\HttpFoundation\RedirectResponse;
 class WishController extends AbstractController
 {
     #[Route('/list', name: 'wish_list', methods: ['GET'])]
+    #[Route('/list', name: 'app_home', methods: ['GET'])]
     public function list(WishRepository $wishRepo): Response
     {
         $wishes = $wishRepo->findAll();

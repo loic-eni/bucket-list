@@ -1,8 +1,14 @@
 <nav>
     <ul>
-        <li><a href="{{ path("home") }}">home</a></li>
-        <li><a href="{{ path("wish_list") }}">wish list</a></li>
-        <li><a href="{{ path("wish_detail", {id:12}) }}">wish detail</a></li>
-        <li><a href="{{ path("wish_add") }}">add wish</a></li>
+        <li><a href="{{ path("home") }}">Home</a></li>
+        <li><a href="{{ path("wish_list") }}">Wish list</a></li>
+        {% if app.user %}
+            <li><a href="{{ path("wish_add") }}">Add wish</a></li>
+            <div style="color: white">hello {{ app.user.username }}</div>
+            <li><a href="{{ path("app_logout") }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ path("app_login") }}">Login</a></li>
+            <li><a href="{{ path("app_register") }}">Register</a></li>
+        {% endif %}
     </ul>
 </nav>
