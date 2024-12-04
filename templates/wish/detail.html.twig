@@ -11,24 +11,51 @@
         <div>createdAt: {{ wish.dateCreated | date('Y/m/d H:i:s') }}</div>
         <div>updatedAt: {{ wish.dateUpdated | date('Y/m/d H:i:s')}}</div>
 
-        {% if app.user.email == wish.user.email %}
-            <div class="flex">
-                <a href="{{ path("wish_delete", {id:wish.id}) }}">
-                    <button type="submit">delete</button>
-                </a>
-                <form action="{{ path("wish_update", {id:wish.id}) }}" method="get">
-                    <button type="submit">update</button>
-                </form>
-            </div>
-        {% endif %}
+        <div>Comments:</div>
+        {% for comment in wish.comments %}
+            <div class="card">
+                <div class="flex-row">
+                    <div>Created by {{ comment.user.username }} on {{ comment.dateCreated | date('Y-m-d H:i:s') }}</div>
+                    {% if app.user.email == comment.user.email %}
+                        <a href="{{ path('comment_edit', {id:comment.id}) }}">
+                            <button class="small-btn">Modify</button>
+                        </a>
+                    {% endif %}
 
-        {% if is_granted("ROLE_ADMIN") %}
-            <div class="flex">
-                <a href="{{ path("wish_delete", {id:wish.id}) }}">
-                    <button type="submit">delete</button>
-                </a>
+                    {% if (app.user.email == comment.user.email or is_granted('ROLE_ADMIN')) %}
+                        <a href="{{ path('comment_delete', {id:comment.id}) }}">
+                            <button class="small-btn">Delete</button>
+                        </a>
+                    {% endif %}
+                </div>
+                <div>{{ comment.content }}</div>
+                <div class="flex-row">
+                    {% for i in 1..5  %}
+                        {% if i <= comment.note %}
+                            <div style="width:30px; height:30px">
+                                <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30px" height="30px" viewBox="0 0 122.88 116.864" enable-background="new 0 0 122.88 116.864" xml:space="preserve"><g><polygon fill-rule="evenodd" clip-rule="evenodd" points="61.44,0 78.351,41.326 122.88,44.638 88.803,73.491 99.412,116.864 61.44,93.371 23.468,116.864 34.078,73.491 0,44.638 44.529,41.326 61.44,0"/></g></svg>
+                            </div>
+                        {% else %}
+                            <div style="width:30px; height: 30px">
+                                <svg xmlns="http://www.w3.org/2000/svg" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 512 488.282"><path fill="#fff" fill-rule="nonzero" d="M268.313 8.2l65.464 153.293 166.054 14.902c7.332.632 12.754 7.085 12.118 14.412a13.262 13.262 0 01-4.495 8.87v.006L381.835 309.374l37.159 162.59c1.646 7.181-2.848 14.336-10.03 15.981a13.308 13.308 0 01-10.273-1.84l-142.686-85.309-143.144 85.579c-6.312 3.777-14.492 1.716-18.274-4.602a13.278 13.278 0 01-1.554-9.809l-.016-.006 37.164-162.589L4.551 199.683c-5.536-4.845-6.103-13.263-1.252-18.804a13.281 13.281 0 019.313-4.527l165.611-14.859L243.73 8.119c2.887-6.777 10.722-9.933 17.493-7.052a13.31 13.31 0 017.09 7.133z"/></svg>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
-        {% endif %}
+        {% endfor %}
+
+            <div class="flex">
+                {% if app.user.email == wish.user.email %}
+                    <a href="{{ path("wish_update", {id:wish.id}) }}"><button>update</button></a>
+                {% endif %}
+
+                {% if (app.user.email == wish.user.email or is_granted('ROLE_ADMIN')) %}
+                    <a href="{{ path("wish_delete", {id:wish.id}) }}"><button>delete</button></a>
+                {% endif %}
+
+                <a href="{{ path('comment_add', {wishId:wish.id}) }}"><button>Add a comment</button></a>
+            </div>
     </div>
 
 {% endblock %}

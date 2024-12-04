@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Wish;
 use App\Form\WishType;
 use App\Repository\WishRepository;
+use App\Service\Censurator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,7 @@ class WishController extends AbstractController
     }
 
     #[Route('/add', name:'wish_add', methods:['GET', 'POST'])]
-public function add(Request $request, EntityManagerInterface $entityManager): Response
+public function add(Request $request, EntityManagerInterface $entityManager, Censurator $censurator): Response
     {
         $wish = new Wish();
         $wishForm = $this->createForm(WishType::class, $wish);
@@ -40,8 +41,11 @@ public function add(Request $request, EntityManagerInterface $entityManager): Re
 
         if($wishForm->isSubmitted() && $wishForm->isValid()){
             $wish->setUser($this->getUser());
+            $wish->setDescription($censurator->purify($wish->getDescription()));
+
             $entityManager->persist($wish);
             $entityManager->flush();
+
             $this->addFlash('success', 'Idea successfully added');
             return $this->redirectToRoute("wish_detail", ['id'=>$wish->getId()]);
         }
