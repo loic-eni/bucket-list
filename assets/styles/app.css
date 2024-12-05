@@ -43,6 +43,12 @@ h1{
     align-items: center;
 }
 
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .center-content{
     display:flex;
     justify-content: center;
@@ -77,6 +83,10 @@ h1{
 .small-btn{
     height:40px;
     padding: 5px 10px;
+}
+
+.bold{
+    font-weight: bold;
 }
 
 /* FLASH */

@@ -2,6 +2,7 @@
     <ul>
         <li><a href="{{ path("home") }}">Home</a></li>
         <li><a href="{{ path("wish_list") }}">Wish list</a></li>
+        <li><a href="{{ path("events") }}">Events</a></li>
         {% if app.user %}
             <li><a href="{{ path("wish_add") }}">Add wish</a></li>
             <div style="color: white">hello {{ app.user.username }}</div>

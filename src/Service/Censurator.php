@@ -5,15 +5,18 @@ namespace App\Service;
 class Censurator
 {
 
-    /**
-     * @var array|string[]
-     */
-    private array $FORBIDDEN_WORDS;
+    const FORBIDDEN_WORDS = ['fuck', 'dick', 'macron','elon musk'];
 
     public function __construct(){
-        $this->FORBIDDEN_WORDS = ['fuck', 'dick', 'macron','elon musk'];
+        $this->FORBIDDEN_PATTERNS = $this->getForbidenPatterns(self::FORBIDDEN_WORDS);
     }
     public function purify(string $string){
-        return str_replace($this->FORBIDDEN_WORDS, '****', $string);
+        return preg_replace_callback($this->FORBIDDEN_PATTERNS, function($match){
+            return str_repeat('*', strlen($match[0]));
+        }, $string);
+    }
+
+    private function getForbidenPatterns($words){
+        return array_map(function ($word){return '#' . $word . '#i';}, $words);
     }
 }

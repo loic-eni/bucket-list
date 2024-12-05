@@ -54,12 +54,13 @@ public function add(Request $request, EntityManagerInterface $entityManager, Cen
     }
 
     #[Route("/update/{id}", name:"wish_update", methods: ['GET', 'POST'])]
-    public function update(EntityManagerInterface $entityManager, Request $request, Wish $wish): Response
+    public function update(EntityManagerInterface $entityManager, Request $request, Wish $wish, Censurator $censurator): Response
     {
         $wishForm = $this->createForm(WishType::class, $wish);
         $wishForm->handleRequest($request);
 
         if($wishForm->isSubmitted() && $wishForm->isValid()){
+            $wish->setDescription($censurator->purify($wish->getDescription()));
              $entityManager->persist($wish);
              $entityManager->flush();
              $this->addFlash("success", "Idea edited successfully");
